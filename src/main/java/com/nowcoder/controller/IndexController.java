@@ -1,12 +1,14 @@
 package com.nowcoder.controller;
 
+import com.nowcoder.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 @Controller
 public class IndexController {
     @RequestMapping("/")
@@ -31,7 +33,13 @@ public class IndexController {
         model.addAttribute("message","I'am glad to see you!");
         model.addAttribute("fromUserName","lc");
         model.addAttribute("time","2019-7-10");
+        User user=new User("wlj",24,"China");
+        model.addAttribute("user",user);
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("user",user);
+        model.addAttribute("map",map);
         return "home";
+
     }
 
 }

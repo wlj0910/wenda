@@ -12,6 +12,17 @@ Hello,你看不到我耶！
     #foreach($color in $colors)
         This is Color:$color
     #end
+    #foreach($kv in $map.entrySet())
+    User: $kv.key, value:$kv.value.toString()
+    #end
+
+    user -- $!{user.toString()}
+    user.name: $!{user.name}
+    user.age: $!{user.age}
+    user.country: $!{user.country}
+
+    #set($title="nowcoder")
+    Title: $!{title}
 祝：开心！
     ${fromUserName} ##如果不存在，解析为文本。
     $!{time}
