@@ -1,0 +1,20 @@
+<html>
+<body>
+<pre>
+#*
+块注释
+Hello,你看不到我耶！
+*#
+亲爱的${toUserName}，你好！
+
+    $!{message}  ##如果不存在，强制为空
+    colors:$!{colors}
+    #foreach($color in $colors)
+        This is Color:$color
+    #end
+祝：开心！
+    ${fromUserName} ##如果不存在，解析为文本。
+    $!{time}
+</pre>
+</body>
+</html>

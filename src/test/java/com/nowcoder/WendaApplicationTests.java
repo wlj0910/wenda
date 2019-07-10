@@ -1,4 +1,4 @@
-package com.nowcoder.wenda;
+package com.nowcoder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
