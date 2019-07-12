@@ -23,6 +23,11 @@ Hello,你看不到我耶！
 
     #set($title="nowcoder")
     Title: $!{title}
+    #set($hello="hello")
+    #set($helloworld1="$!{hello}  world")
+    helloworld1: $!{helloworld1}
+    #set($helloworld2='$!{hello}  world')
+    helloworld2: $!{helloworld2}
 祝：开心！
     ${fromUserName} ##如果不存在，解析为文本。
     $!{time}
