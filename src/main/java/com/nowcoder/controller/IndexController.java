@@ -23,7 +23,7 @@ public class IndexController {
     private static final Logger logger= LoggerFactory.getLogger(IndexController.class);
     //WendaService wendaService=new WendaService();
     @Autowired
-    WendaService wendaService;
+    WendaService wendaService;  //享元模式
 
     @RequestMapping("/")
     @ResponseBody
