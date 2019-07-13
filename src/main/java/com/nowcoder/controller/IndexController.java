@@ -1,7 +1,7 @@
 package com.nowcoder.controller;
 
 import com.nowcoder.aspect.LogAspect;
-import com.nowcoder.model.User;
+import com.nowcoder.model.userTest;
 import com.nowcoder.service.WendaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class IndexController {
         model.addAttribute("message","I'am glad to see you!");
         model.addAttribute("fromUserName","lc");
         model.addAttribute("time","2019-7-10");
-        User user=new User("wlj",24,"China");
+        userTest user=new userTest("wlj",24,"China");
         model.addAttribute("user",user);
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("user",user);

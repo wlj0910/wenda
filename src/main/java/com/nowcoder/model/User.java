@@ -1,38 +1,54 @@
 package com.nowcoder.model;
 
 public class User {
-    private  String name;
-    private  int age;
-    private  String country;
-    public User(String name,int age,String country){
+    private  int id;
+    private String name;
+    private String password;
+    private String salt;
+    private String headUrl;
+    public User(){
+    }
+    public User(String name){
         this.name=name;
-        this.age=age;
-        this.country=country;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-    public String getName() {
-        return name;
+
+    public String getSalt() {
+        return salt;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-    public int getAge() {
-        return age;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-    public String getCountry() {
-        return country;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    @Override
-    public String toString() {
-        return "name:"+name+",age:"+age+",country:"+country;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 }
