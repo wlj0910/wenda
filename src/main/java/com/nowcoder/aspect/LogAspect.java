@@ -18,7 +18,8 @@ public class LogAspect {
     public void beforeMethod(JoinPoint joinPoint){
         StringBuilder sb=new StringBuilder();
         for(Object object:joinPoint.getArgs()){
-            sb.append("arg: "+object.toString()+"|");
+            if(object!=null)
+                sb.append("arg: "+object.toString()+"|");
         }
         logger.info("before method  "+new Date()+" "+sb.toString());
     }
