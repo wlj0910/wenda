@@ -3,20 +3,142 @@ package com.nowcoder.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.nowcoder.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.BinaryClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Tuple;
 
-public class JedisAdapter {
-    public static void print(int index,Object object){
+import java.util.List;
+
+@Service
+public class JedisAdapter implements InitializingBean{
+    private static final Logger logger = LoggerFactory.getLogger(JedisAdapter.class);
+    private JedisPool pool=null;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        pool=new JedisPool("127.0.0.1",6379);
+    }
+    public long sadd(String key,String value){
+        Jedis jedis=null;
+        try{
+            jedis=pool.getResource();
+            jedis.auth("123456");
+            jedis.select(10);
+            return jedis.sadd(key,value);
+        }catch(Exception e){
+            logger.error("增加失败"+e.getMessage());
+        }finally{
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+        return 0;
+    }
+
+    public long srem(String key,String value){
+        Jedis jedis=null;
+        try{
+            jedis=pool.getResource();
+            jedis.auth("123456");
+            jedis.select(10);
+            return jedis.srem(key,value);
+        }catch(Exception e){
+            logger.error("增加失败"+e.getMessage());
+        }finally{
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+        return 0;
+    }
+
+    public long scard(String key){
+        Jedis jedis=null;
+        try{
+            jedis=pool.getResource();
+            jedis.auth("123456");
+            jedis.select(10);
+            return jedis.scard(key);
+        }catch(Exception e){
+            logger.error("增加失败"+e.getMessage());
+        }finally{
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+        return 0;
+    }
+
+    public boolean sismember(String key,String value){
+        Jedis jedis=null;
+        try{
+            jedis=pool.getResource();
+            jedis.auth("123456");
+            jedis.select(10);
+            return jedis.sismember(key,value);
+        }catch(Exception e){
+            logger.error("增加失败"+e.getMessage());
+        }finally{
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+        return false;
+    }
+
+    public List<String> brpop(int timeout, String key){
+        Jedis jedis=null;
+        try{
+            jedis=pool.getResource();
+            jedis.auth("123456");
+            jedis.select(10);
+            return jedis.brpop(timeout,key);
+        }catch(Exception e){
+            logger.error("增加失败"+e.getMessage());
+        }finally{
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+        return null;
+    }
+
+
+    public long lpush(String key,String value){
+        Jedis jedis=null;
+        try{
+            jedis=pool.getResource();
+            jedis.auth("123456");
+            jedis.select(10);
+            return jedis.lpush(key,value);
+        }catch(Exception e){
+            logger.error("增加失败"+e.getMessage());
+        }finally{
+            if(jedis!=null){
+                jedis.close();
+            }
+        }
+        return 0;
+    }
+
+
+    public static void print(int index, Object object){
         System.out.println(String.format("%d,%s",index,object.toString()));
     }
     public static void main(String[] args){
+        JedisAdapter jj=new JedisAdapter();
+        jj.sadd("wlj","123");
+
+
         Jedis jedis=new Jedis("127.0.0.1",6379);
         jedis.auth("123456");
         jedis.select(9);
-        jedis.flushAll();//删除
+        jedis.flushDB();//删除
         jedis.set("hello","world");
         print(1,jedis.get("hello"));
         jedis.rename("hello","newHello");
@@ -125,6 +247,7 @@ public class JedisAdapter {
             Jedis j=pool.getResource();
             j.auth("123456");
             j.select(9);
+            j.sadd("wlj","123456");
             print(45,j.get("pv"));
             j.close();
         }

@@ -1,5 +1,8 @@
 package com.nowcoder.controller;
 
+import com.nowcoder.async.EventModel;
+import com.nowcoder.async.EventProducer;
+import com.nowcoder.async.EventType;
 import com.nowcoder.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -22,6 +25,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
     public String login(Model model,
                            @RequestParam("username") String username,
@@ -30,11 +36,14 @@ public class LoginController {
                            @RequestParam(value="rememberme",defaultValue="false") boolean rememberme,
                            HttpServletResponse response){
         try {
-            Map<String, String> map = userService.login(username, password);
+            Map<String, Object> map = userService.login(username, password);
             if (map.containsKey("ticket")) {
-                Cookie cookie=new Cookie("ticket",map.get("ticket"));
+                Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
                 cookie.setPath("/");
                 response.addCookie(cookie);
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username",username).setExt("email","XXXXXX@qq.com")
+                        .setActorId((int)map.get("userId")));
                 if(StringUtils.isNotBlank(next)){
                     return "redirect:"+next;
                 }
@@ -56,9 +65,9 @@ public class LoginController {
                            @RequestParam(value="next",required = false) String next,
                            HttpServletResponse response){
         try {
-            Map<String, String> map = userService.register(username, password);
+            Map<String, Object> map = userService.register(username, password);
             if (map.containsKey("msg")) {
-                Cookie cookie=new Cookie("ticket",map.get("ticket"));
+                Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 if(StringUtils.isNotBlank(next)){
