@@ -15,6 +15,15 @@ public class WendaUtil {
     public static int ANONYMOUS_USERID=3;
     public static int SYSTEM_USERID=4;
 
+    public static String  getJSONString(int code,Map<String,Object> map){
+        JSONObject json=new JSONObject();
+        json.put("code",code);
+        for(Map.Entry<String,Object> entry:map.entrySet()){
+            json.put(entry.getKey(),entry.getValue());
+        }
+        return json.toJSONString();
+    }
+
     public static String getJSONString(int code,String msg){
         JSONObject json=new JSONObject();
         json.put("code",code);

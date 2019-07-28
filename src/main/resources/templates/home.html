@@ -1,36 +1,57 @@
 <html>
 <body>
 <pre>
-#*
-块注释
-Hello,你看不到我耶！
-*#
-亲爱的${toUserName}，你好！
+    #*
+    你看不到我~~~~
+    *#
+    $!{value1}
+    $!{value2} ## 如果不存在，强制为空
+    ${value3}
 
-    $!{message}  ##如果不存在，强制为空
-    colors:$!{colors}
+    colors: $!{colors}
+
     #foreach($color in $colors)
-        This is Color:$color
+        This is Color $!{foreach.index}: $color, $!{foreach.count}
     #end
+
+    #foreach($key in $map.keySet())
+        Number: $key, Value: $map.get($key)
+    #end
+
     #foreach($kv in $map.entrySet())
-    User: $kv.key, value:$kv.value.toString()
+        Number: $kv.key, Value: $kv.value
     #end
 
-    user -- $!{user.toString()}
-    user.name: $!{user.name}
-    user.age: $!{user.age}
-    user.country: $!{user.country}
+    User:  $!{user.name}
+    $!{user.description}
+    $!{user.getDescription()}
 
-    #set($title="nowcoder")
+    #set($title = "nowcoder_title")
     Title: $!{title}
-    #set($hello="hello")
-    #set($helloworld1="$!{hello}  world")
-    helloworld1: $!{helloworld1}
-    #set($helloworld2='$!{hello}  world')
-    helloworld2: $!{helloworld2}
-祝：开心！
-    ${fromUserName} ##如果不存在，解析为文本。
-    $!{time}
+
+
+    Parse: #parse("header.html")
+    Include: #include("header.html")
+
+    #macro (render_color, $index, $color)
+        Color Render Macro $index, $color
+    #end
+
+    #foreach($color in $colors)
+        #render_color($foreach.index, $color)
+    #end
+
+    #set($hello = "hello")
+    #set($helloworld1 = "$!{hello} world")
+    $!hello
+    $helloworld1
+    #set($helloworld2 = '$!{hello} world')
+    $helloworld2
+
+
+
+
+
 </pre>
 </body>
 </html>

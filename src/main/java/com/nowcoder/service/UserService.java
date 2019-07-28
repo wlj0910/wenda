@@ -77,6 +77,10 @@ public class UserService {
             map.put("msg","密码错误！");
             return map;
         }
+        /*if(!password.equals(user.getPassword())) {
+            map.put("msg", "密码错误！");
+            return map;
+        }*/
 
         //登录成功下发ticket。
         String ticket=addLoginTicket(user.getId());

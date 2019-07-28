@@ -19,6 +19,10 @@ public class QuestionService {
     public Question selectById(int id){
         return questionDAO.selectById(id);
     }
+    public Question getById(int id){
+        return questionDAO.getById(id);
+    }
+
 
     public int addQuestion(Question question){
         //html标签过滤
